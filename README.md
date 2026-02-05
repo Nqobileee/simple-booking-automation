@@ -1,69 +1,98 @@
-# whatsapp
+# Simple Booking Automation
 
+Booking Management Automation System
 
-Booking Management Automation
+## Overview
 
-Problem Overview
+This project automates the processing of booking reservations by integrating data from Google Sheets. The system reads booking requests from an Inbox sheet, matches them with location-specific booking numbers, and outputs consolidated information for further processing.
 
-Our client is facing a major challenge: receiving booking reservations every 5 minutes via email, each with unique time and location details. The current process requires:
+## Problem Statement
 
-Searching the email and a contact list (in a spreadsheet) for location, time, and relevant contacts.
+The client receives booking reservations with location details that need to be matched with corresponding booking numbers and contact information. Manual processing is time-consuming and error-prone, especially when handling multiple requests.
 
-Sending messages to the appropriate people and also notifying a communication channel (e.g., Slack or MS Teams) in case someone is missing from the contact list.
+## Solution
 
-Providing customer support in parallel with all these tasks.
+A Python-based automation script that:
 
+- Connects to Google Sheets using the gspread API
+- Reads data from three worksheets: Location, Inbox, and Output
+- Merges inbox requests with location data based on matching locations
+- Maintains historical records by appending to existing output data
+- Removes duplicate entries automatically
+- Updates the Output sheet with consolidated results
 
-Solution: Python Automation
+## Prerequisites
 
-To solve this, we've created a Python-based automation system with the following capabilities:
+- Python 3.x
+- Google Cloud Platform service account with Google Sheets API access
+- Service account credentials file (keys.json)
 
-📧 Email Parsing: Automatically reads and processes incoming booking reservation emails.
+## Required Python Libraries
 
-🔍 Data Comparison: Compares booking details in the email with contact information in a spreadsheet.
+```python
+pip install gspread pandas
+```
 
-🎯 Targeted Messaging: Sends personalized messages to the right contacts based on the booking details.
+## Setup
 
-⚡ Handles High Traffic: Can efficiently manage up to 2,000 requests per day.
+1. Create a Google Cloud Platform project
+2. Enable Google Sheets API
+3. Create a service account and download credentials as keys.json
+4. Place keys.json in the project root directory
+5. Share your Google Sheet with the service account email
 
-⏱ 24/7 Service: Runs continuously without downtime, ensuring that bookings are processed round the clock.
+## Google Sheets Structure
 
-📊 Data Analytics: Automatically generates detailed reports for tracking and analyzing performance.
+### Location Sheet
+Required columns:
+- Location
+- Booking Number
 
-🤖 Bonus Feature: Potential integration of a customer support chatbot to assist with queries.
+### Inbox Sheet
+Required columns:
+- Location
+- Contact
 
+### Output Sheet
+Automatically populated with merged data from Location and Inbox sheets.
 
-Project Structure
+## How It Works
 
-/src: The core code for email reading, data comparison, and messaging.
+1. Authenticates with Google Sheets using service account credentials
+2. Loads data from Location, Inbox, and Output worksheets
+3. Validates that required columns exist in the source sheets
+4. Merges Inbox data with Location data based on the Location column
+5. Appends new merged data to existing Output data
+6. Removes duplicate records
+7. Clears and updates the Output sheet with the consolidated results
 
-/data: Sample data files (e.g., booking info, contact lists).
+## Usage
 
-/docs: Documentation on how the system works and potential setup.
+Run the script using Jupyter Notebook:
 
-/tests: Unit tests to ensure the system works as expected.
+```bash
+jupyter notebook Script.ipynb
+```
 
+Or execute the notebook cells directly in VS Code.
 
-How It Works
+## Current Limitations
 
-1. Email Parsing: The system reads incoming emails to extract booking details.
+- Requires manual execution (not automated on a schedule)
+- Limited error handling for API rate limits
+- No email integration yet
 
+## Future Enhancements
 
-2. Data Comparison: The system compares email data with the contact list from the spreadsheet to identify who needs the information.
+- Email parsing integration
+- Automated scheduled execution
+- Message dispatch to contacts
+- Slack/Teams notification integration
+- Customer support chatbot
+- Detailed analytics and reporting
 
+## Collaborators
 
-3. Message Dispatch: The system sends messages to the identified contacts.
-
-
-4. Channel Notification: If a contact is missing from the list, a notification is sent to the communication channel.
-
-
-5. Reports: Each transaction is logged and reported for tracking.
-
-
-
-Collaborators
-
-This project is being developed by Nqobile Muyambiri and Craig M. We will be posting updates as we progress.
+This project is being developed by Nqobile Muyambiri and Craig M.
 
 
