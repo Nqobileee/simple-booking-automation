@@ -93,6 +93,6 @@ Or execute the notebook cells directly in VS Code.
 
 ## Collaborators
 
-This project is being developed by Nqobile Muyambiri and Craig M.
+This project is being developed by Nqobile Muyambiri.
 
 
